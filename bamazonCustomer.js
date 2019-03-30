@@ -26,6 +26,7 @@ const connection = mysql.createConnection({
     console.log("connected as id " + connection.threadId + "\n");
 
     displayMerch();
+    connection.end();
   });
 
   const displayMerch = () => {
@@ -38,17 +39,22 @@ const connection = mysql.createConnection({
         );
         }
         console.log(table.toString());
-        
-        connection.end();
       });
   }
 
-  
+  const prodRequest = () => {
+        inquirer.prompt([
+            {
+                name: "product"
+                type: "input"
+                message: "What is the ID number of the item you would like to purchase?"
+            }
+        ])
+
+  }
+
+  prodRequest();
 
   
- 
-
-
-
   
   
