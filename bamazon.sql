@@ -11,13 +11,3 @@ CREATE TABLE products(
   stock_quantity INT(10) default 0,
   PRIMARY KEY (id)
 );
-
-  * item_id (unique id for each product)
-
-   * product_name (Name of product)
-
-   * department_name
-
-   * price (cost to customer)
-
-   * stock_quantity (how much of the product is available in stores)
