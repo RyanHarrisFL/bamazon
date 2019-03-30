@@ -1,6 +1,12 @@
 // Requiring npm packages
 const mysql = require("mysql");
 const inquirer = require("inquirer");
+var Table = require('cli-table');
+
+var table = new Table({
+    head: ['Product', 'Department', 'Price' , 'In Stock']
+  , colWidths: [25, 25, 25, 25]
+});
 
 //creating connection to Database
 const connection = mysql.createConnection({
@@ -26,11 +32,20 @@ const connection = mysql.createConnection({
       connection.query("SELECT product_name, department_name, price, stock_quantity FROM products", (err, res) => {
         if (err) throw err;
         console.log(res);
+        table.push(
+            ['First value', 'Second value', 'Third Value', 'Fourth Value']
+        );
+        console.log(table.toString());
+
         connection.end();
       });
   }
 
   
+
+  
+ 
+
 
 
   
