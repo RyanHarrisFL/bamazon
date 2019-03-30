@@ -21,13 +21,31 @@ const connection = mysql.createConnection({
   });
   
   // connect to the mysql server and sql database
-  connection.connect(function(err) {
+  connection.connect( (err) => {
     if (err) throw err;
     console.log("connected as id " + connection.threadId + "\n");
 
     displayMerch();
     connection.end();
   });
+
+// Prompt asking the customer which items they would like to buy along with the quantity.
+  const prodRequest = () => {
+    inquirer.prompt([
+        {
+            name: "product",
+            type: "input",
+            message: "What is the ID number of the item you would like to purchase?",
+            validate: function(value) {
+                if (isNaN(value) === false) {
+                  return true;
+                }
+                return false;
+              }
+        }
+    ])
+
+}
 
   const displayMerch = () => {
       connection.query("SELECT product_name, department_name, price, stock_quantity FROM products", (err, res) => {
@@ -39,21 +57,14 @@ const connection = mysql.createConnection({
         );
         }
         console.log(table.toString());
+        prodRequest();
       });
+      
   }
 
-  const prodRequest = () => {
-        inquirer.prompt([
-            {
-                name: "product"
-                type: "input"
-                message: "What is the ID number of the item you would like to purchase?"
-            }
-        ])
+  
 
-  }
-
-  prodRequest();
+  
 
   
   
