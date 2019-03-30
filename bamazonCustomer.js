@@ -30,7 +30,7 @@ connection.connect(err => {
 });
 
 // Prompt asking the customer which items they would like to buy along with the quantity.
-const prodRequest = () => {
+prodRequest = () => {
   inquirer.prompt([
     {
       name: "product",
@@ -50,7 +50,7 @@ const prodRequest = () => {
   });
 };
 
-const displayMerch = () => {
+displayMerch = () => {
   connection.query(
     "SELECT id, product_name, department_name, price, stock_quantity FROM products",
     (err, res) => {
