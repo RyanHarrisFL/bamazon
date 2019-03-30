@@ -26,7 +26,7 @@ connection.connect(err => {
   console.log("connected as id " + connection.threadId + "\n");
 
   displayMerch();
-  connection.end();
+  //connection.end();
 });
 
 // Prompt asking the customer which items they would like to buy along with the quantity.
@@ -44,9 +44,11 @@ prodRequest = () => {
       }
     }
   ]).then( answers => {
-
-    console.log("Then is working.")
- 
+      console.log(answers)
+      
+    connection.query("SELECT * FROM products", (err, res) => {
+        console.log (res[]);
+    });
   });
 };
 
