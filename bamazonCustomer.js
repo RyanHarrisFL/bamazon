@@ -23,13 +23,15 @@ const connection = mysql.createConnection({
   });
 
   const displayMerch = () => {
-      console.log("This is working");
-      
+      connection.query("SELECT product_name, department_name, price, stock_quantity FROM products", (err, res) => {
+        if (err) throw err;
+        console.log(res);
+        connection.end();
+      });
   }
 
+  
 
 
-
-
-  connection.end();
+  
   
