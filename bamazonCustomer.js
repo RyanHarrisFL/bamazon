@@ -5,7 +5,7 @@ var Table = require('cli-table');
 
 var table = new Table({
     head: ['Product', 'Department', 'Price' , 'In Stock']
-  , colWidths: [25, 25, 25, 25]
+  , colWidths: [40, 25, 25, 25]
 });
 
 //creating connection to Database
@@ -33,7 +33,7 @@ const connection = mysql.createConnection({
         if (err) throw err;
         console.log(res);
         table.push(
-            ['First value', 'Second value', 'Third Value', 'Fourth Value']
+            [res[0].product_name, res[0].department_name, res[0].price, res[0].stock_quantity]
         );
         console.log(table.toString());
 
