@@ -31,12 +31,14 @@ const connection = mysql.createConnection({
   const displayMerch = () => {
       connection.query("SELECT product_name, department_name, price, stock_quantity FROM products", (err, res) => {
         if (err) throw err;
-        console.log(res);
+        //console.log(res);
+        for (let i = 0; i < res.length; i++) {
         table.push(
-            [res[0].product_name, res[0].department_name, res[0].price, res[0].stock_quantity]
+            [res[i].product_name, res[i].department_name, res[i].price, res[i].stock_quantity]
         );
+        }
         console.log(table.toString());
-
+        
         connection.end();
       });
   }
