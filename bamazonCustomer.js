@@ -19,10 +19,10 @@ const connection = mysql.createConnection({
     if (err) throw err;
     console.log("connected as id " + connection.threadId + "\n");
 
-    diplayMerch();
+    displayMerch();
   });
 
-  const diplayMerch = () => {
+  const displayMerch = () => {
       console.log("This is working");
       
   }
