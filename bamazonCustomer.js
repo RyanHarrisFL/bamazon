@@ -1,9 +1,9 @@
 // Requiring npm packages
-var mysql = require("mysql");
-var inquirer = require("inquirer");
+const mysql = require("mysql");
+const inquirer = require("inquirer");
 
 //creating connection to Database
-var connection = mysql.createConnection({
+const connection = mysql.createConnection({
     host: "localhost",
   
     port: 8889,
@@ -18,6 +18,18 @@ var connection = mysql.createConnection({
   connection.connect(function(err) {
     if (err) throw err;
     console.log("connected as id " + connection.threadId + "\n");
-    
+
+    diplayMerch();
   });
+
+  const diplayMerch = () => {
+      console.log("This is working");
+      
+  }
+
+
+
+
+
+  connection.end();
   
