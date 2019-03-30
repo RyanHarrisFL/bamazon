@@ -4,6 +4,7 @@
   "description": "Creating for database dependencies and prompt dependencies.",
   "main": "bamazonCustomer.js",
   "dependencies": {
+    "cli-table": "^0.3.1",
     "inquirer": "^6.2.2",
     "mysql": "^2.16.0"
   },
