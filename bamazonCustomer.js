@@ -36,14 +36,18 @@ const prodRequest = () => {
       name: "product",
       type: "input",
       message: "What is the ID number of the item you would like to purchase?",
-      validate: function(value) {
+      validate: (value) => {
         if (isNaN(value) === false) {
           return true;
         }
         return false;
       }
     }
-  ]);
+  ]).then( answers => {
+
+    console.log("Then is working.")
+ 
+  });
 };
 
 const displayMerch = () => {
