@@ -45,10 +45,10 @@ prodRequest = () => {
     }
   ]).then( answers => {
       console.log(answers)
-      
-    connection.query("SELECT * FROM products", (err, res) => {
-        console.log (res[]);
+    connection.query("SELECT * FROM products", [answers.product], (err, response) => {
+        console.log (response[answers.product - 1].id);
     });
+    
   });
 };
 
