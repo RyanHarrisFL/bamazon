@@ -42,11 +42,26 @@ prodRequest = () => {
         }
         return false;
       }
+    },
+    {
+      name: "quantity",
+      type: "input",
+      message: "How much of this item would you like to purchase?",
+      validate: (value) => {
+        if (isNaN(value) === false) {
+          return true;
+        }
+        return false;
+      }
     }
   ]).then( answers => {
       console.log(answers)
-    connection.query("SELECT * FROM products", [answers.product], (err, response) => {
+      let reqQuantity = (answers.quantity)
+    connection.query("SELECT * FROM products", [answers.product, answers.stock_quantity], (err, response) => {
         console.log (response[answers.product - 1].id);
+        let availQuantity = response[answers.quantity - 1].stock_quantity;
+
+    
     });
     
   });
