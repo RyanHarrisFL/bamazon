@@ -23,7 +23,6 @@ const connection = mysql.createConnection({
 // connect to the mysql server and sql database
 connection.connect(err => {
   if (err) throw err;
-  console.log("connected as id " + connection.threadId + "\n");
 
   displayMerch();
   //connection.end();
@@ -55,26 +54,30 @@ prodRequest = () => {
       }
     }
   ]).then( answers => {
-      console.log(answers)
-      let reqQuantity = (answers.quantity)
     connection.query("SELECT * FROM products", [answers.product, answers.stock_quantity], (err, response) => {
+        let reqQuantity = parseInt(answers.quantity);
+        console.log(reqQuantity);
         let productId = (response[answers.product - 1].id);
+        console.log(productId);
         let price = (response[answers.product - 1].price);
-        let availQuantity = (response[answers.quantity - 1].stock_quantity);
-        let updatedInventory = availQuantity - reqQuantity;
+        let availQuantity = response[answers.quantity - 1].stock_quantity;
+        console.log(availQuantity);
+        let updatedInventory = availQuantity; - reqQuantity;
+        console.log(updatedInventory);
 
-        if (reqQuantity > availQuantity) {
-          console.log("INSUFFICIENT QUANITY! :( ")
+        if (availQuantity < reqQuantity) {
+          console.log("INSUFFICIENT QUANITY!");
         } else {
           console.log ("YOUR TOTAL PRICE COMES TO $" + price * reqQuantity)
-          connection.query("UPDATE products SET ? WHERE ?", [
-            {
+          var query = connection.query("UPDATE products SET ? WHERE ?", [
+             {
               stock_quantity: updatedInventory
-            },
-            {
-              id: productId
-            }
-          ])
+             },
+             {
+               id: productId
+             }
+           ]);
+           console.log(query.sql);
         }
 
         connection.end();
@@ -88,7 +91,6 @@ displayMerch = () => {
     "SELECT id, product_name, department_name, price, stock_quantity FROM products",
     (err, res) => {
       if (err) throw err;
-      //console.log(res);
       for (let i = 0; i < res.length; i++) {
         table.push([
           res[i].id,
