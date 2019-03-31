@@ -59,7 +59,13 @@ prodRequest = () => {
       let reqQuantity = (answers.quantity)
     connection.query("SELECT * FROM products", [answers.product, answers.stock_quantity], (err, response) => {
         console.log (response[answers.product - 1].id);
-        let availQuantity = response[answers.quantity - 1].stock_quantity;
+        let availQuantity = (response[answers.quantity - 1].stock_quantity);
+
+        if (reqQuantity > availQuantity) {
+          console.log("Insufficient quantity!")
+        } else {
+          console.log ("This is also working!")
+        }
 
     
     });
