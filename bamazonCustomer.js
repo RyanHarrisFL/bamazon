@@ -54,17 +54,16 @@ prodRequest = () => {
       }
     }
   ]).then( answers => {
-    connection.query("SELECT * FROM products", [answers.product], (err, response) => {
-        const productId = (response[answers.product - 1].id);
-        //console.log(productId);
-        const reqQuantity = parseInt(answers.quantity);
-        //console.log(reqQuantity);
-        const price = (response[answers.product - 1].price);
-        const availQuantity = response[answers.quantity - 1].stock_quantity;
-        //console.log(availQuantity);
-        const updatedInventory = parseInt(availQuantity - reqQuantity);
-        //console.log(updatedInventory);
-        console.log(response[answers].stock_quantity);
+    connection.query("SELECT * FROM products", [answers.product, answers.stock_quantity], (err, response) => {
+        let reqQuantity = parseInt(answers.quantity);
+        console.log(reqQuantity);
+        let productId = (response[answers.product - 1].id);
+        console.log(productId);
+        let price = (response[answers.product - 1].price);
+        let availQuantity = response[answers.quantity - 1].stock_quantity;
+        console.log(availQuantity);
+        let updatedInventory = availQuantity; - reqQuantity;
+        console.log(updatedInventory);
 
         if (availQuantity < reqQuantity) {
           console.log("INSUFFICIENT QUANITY!");
@@ -78,6 +77,7 @@ prodRequest = () => {
                id: productId
              }
            ]);
+           console.log(query.sql);
         }
 
         connection.end();
