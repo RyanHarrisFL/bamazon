@@ -30,60 +30,61 @@ connection.connect(err => {
 
 // Prompt asking the customer which items they would like to buy along with the quantity.
 prodRequest = () => {
-  inquirer.prompt([
-    {
-      name: "product",
-      type: "input",
-      message: "What is the ID number of the item you would like to purchase?",
-      validate: (value) => {
-        if (isNaN(value) === false) {
-          return true;
+  inquirer
+    .prompt([
+      {
+        name: "product",
+        type: "input",
+        message:
+          "What is the ID number of the item you would like to purchase?",
+        validate: value => {
+          if (isNaN(value) === false) {
+            return true;
+          }
+          return false;
         }
-        return false;
+      },
+      {
+        name: "quantity",
+        type: "input",
+        message: "How much of this item would you like to purchase?",
+        validate: value => {
+          if (isNaN(value) === false) {
+            return true;
+          }
+          return false;
+        }
       }
-    },
-    {
-      name: "quantity",
-      type: "input",
-      message: "How much of this item would you like to purchase?",
-      validate: (value) => {
-        if (isNaN(value) === false) {
-          return true;
-        }
-        return false;
-      }
-    }
-  ]).then( answers => {
-    connection.query("SELECT * FROM products", [answers.product, answers.stock_quantity], (err, response) => {
-        let reqQuantity = parseInt(answers.quantity);
-        console.log(reqQuantity);
-        let productId = (response[answers.product - 1].id);
-        console.log(productId);
-        let price = (response[answers.product - 1].price);
-        let availQuantity = response[answers.quantity - 1].stock_quantity;
-        console.log(availQuantity);
-        let updatedInventory = availQuantity; - reqQuantity;
-        console.log(updatedInventory);
+    ])
+    .then(answers => {
+      connection.query(
+        "SELECT * FROM products",
+        [answers.product, answers.stock_quantity],
+        (err, response) => {
+          let reqQuantity = parseInt(answers.quantity);
+          let productId = response[answers.product - 1].id;
+          let price = response[answers.product - 1].price;
+          let availQuantity = response[answers.product - 1].stock_quantity;
+          let updatedInventory = availQuantity - reqQuantity;
 
-        if (availQuantity < reqQuantity) {
-          console.log("INSUFFICIENT QUANITY!");
-        } else {
-          console.log ("YOUR TOTAL PRICE COMES TO $" + price * reqQuantity)
-          var query = connection.query("UPDATE products SET ? WHERE ?", [
-             {
-              stock_quantity: updatedInventory
-             },
-             {
-               id: productId
-             }
-           ]);
-           console.log(query.sql);
-        }
+          if (availQuantity < reqQuantity) {
+            console.log("INSUFFICIENT QUANITY!");
+          } else {
+            console.log("YOUR TOTAL PRICE COMES TO $" + price * reqQuantity);
+            var query = connection.query("UPDATE products SET ? WHERE ?", [
+              {
+                stock_quantity: updatedInventory
+              },
+              {
+                id: productId
+              }
+            ]);
+          }
 
-        connection.end();
+          connection.end();
+        }
+      );
     });
-    
-  });
 };
 
 displayMerch = () => {
