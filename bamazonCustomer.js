@@ -76,6 +76,7 @@ prodRequest = () => {
             console.log("---------------------------------");
             console.log("YOUR TOTAL PRICE COMES TO $ " + price * reqQuantity);
             console.log("---------------------------------");
+            console.log("");
             var query = connection.query("UPDATE products SET ? WHERE ?", [
               {
                 stock_quantity: updatedInventory
@@ -114,14 +115,19 @@ displayMerch = () => {
 additionalOrder = () => {
   inquirer
     .prompt([{
-      name: "newOrder",
-      message: "Would you like to make another purchase?"
+      type: "list",
+      message: "Would you like to make another purchase?",
+      choices: ["yes", "no"],
+      name: "userChoices"
     }]).then( answer => {
-      if (answer.name == "yes") {
-        console.log(answer.name);
+      if (answer.userChoices === "yes") {
+        displayMerch();
       }
     else {
+      console.log("");
+      console.log("-------------------------------");
       console.log("Thank you for shopping with us!")
+      console.log("-------------------------------");
       connection.end();
     }
 })
