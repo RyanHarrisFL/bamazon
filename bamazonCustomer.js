@@ -68,9 +68,14 @@ prodRequest = () => {
           let updatedInventory = availQuantity - reqQuantity;
 
           if (availQuantity < reqQuantity) {
-            console.log("INSUFFICIENT QUANITY!");
+            console.log("------------------------------------------------------------------------------------------------------------------");
+            console.log("Item currently not available in the requested amount. Please adjust your order, or try purchasing a different item");
+            console.log("------------------------------------------------------------------------------------------------------------------");
+            prodRequest();
           } else {
-            console.log("YOUR TOTAL PRICE COMES TO $" + price * reqQuantity);
+            console.log("---------------------------------");
+            console.log("YOUR TOTAL PRICE COMES TO $ " + price * reqQuantity);
+            console.log("---------------------------------");
             var query = connection.query("UPDATE products SET ? WHERE ?", [
               {
                 stock_quantity: updatedInventory
@@ -80,8 +85,7 @@ prodRequest = () => {
               }
             ]);
           }
-
-          connection.end();
+          additionalOrder();
         }
       );
     });
@@ -105,4 +109,20 @@ displayMerch = () => {
       prodRequest();
     }
   );
+};
+
+additionalOrder = () => {
+  inquirer
+    .prompt([{
+      name: "newOrder",
+      message: "Would you like to make another purchase?"
+    }]).then( answer => {
+      if (answer.name == "yes") {
+        console.log(answer.name);
+      }
+    else {
+      console.log("Thank you for shopping with us!")
+      connection.end();
+    }
+})
 };
