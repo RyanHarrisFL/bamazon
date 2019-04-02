@@ -25,7 +25,6 @@ connection.connect(err => {
   if (err) throw err;
 
   displayMerch();
-  //connection.end();
 });
 
 // Prompt asking the customer which items they would like to buy along with the quantity.
@@ -77,6 +76,7 @@ prodRequest = () => {
             console.log("YOUR TOTAL PRICE COMES TO $ " + price * reqQuantity);
             console.log("---------------------------------");
             console.log("");
+            additionalOrder();
             var query = connection.query("UPDATE products SET ? WHERE ?", [
               {
                 stock_quantity: updatedInventory
@@ -86,7 +86,7 @@ prodRequest = () => {
               }
             ]);
           }
-          additionalOrder();
+          
         }
       );
     });
@@ -121,7 +121,7 @@ additionalOrder = () => {
       name: "userChoices"
     }]).then( answer => {
       if (answer.userChoices === "yes") {
-        displayMerch();
+        prodRequest();
       }
     else {
       console.log("");
