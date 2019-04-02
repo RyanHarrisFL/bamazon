@@ -10,6 +10,8 @@
 * dBeaver Database Manager
 * NPM Packages (MySql, Inquirer, cli-table)
 
+Gifs below created using Screen to GIF: https://www.screentogif.com/
+
 **Purpose of Project:** This project practices making SQL server requests by pulling information from the database and also making updates to the item inventory in the database.
 
 **What it Does:** A user can select the id of an item they want to purchase. Once the item selection is made they can shoose the quantity. If their is enough inventory available the user will receive a total for the purchase and can choose to make another purchse. If their is not enough inventory they will receive a message telling them their is insufficient inventory and they will have the option to try a smaller quantity, or make another purchase. 
