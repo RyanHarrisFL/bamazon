@@ -20,7 +20,7 @@ Gifs below created using Screen to GIF: https://www.screentogif.com/
 
 ### Successful Purchase
 
-1. Making an initial purchase then exiting the store.
+1. Making an initial purchase then exiting the store. NOTE: The Gif for "Insufficent Inventory" shows the updated database in the table (Bananas 150 from 151 in first Gif example.)
 
 ![Alt Text](https://github.com/RyanHarrisFL/bamazon/blob/master/assets/bamazon-purchase.gif)
 
